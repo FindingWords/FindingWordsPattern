@@ -63,8 +63,8 @@ private String categorie;
         return pages;
     }
 
-    public void setPage(int page) {
-        this.pages = page;
+    public void setPages(int pages) {
+        this.pages = pages;
     }
 
     public String getCategorie() {
