@@ -9,7 +9,7 @@ package mx.edu.uttt.trasnfer;
  *
  * @author arturo
  */
-public class registerVO {
+public class UsersVO {
     private String named;
     private String passworder;
     private String maill;
