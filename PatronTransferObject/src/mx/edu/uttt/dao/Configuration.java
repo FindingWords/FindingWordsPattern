@@ -14,5 +14,5 @@ public class Configuration {
   protected final String DRIVER="com.mysql.jdbc.Driver";
   protected final String usuario="root";
   protected final String password="1234";
-    
+  
 }
