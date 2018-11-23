@@ -17,6 +17,16 @@ private Date dateed;
 private int page; 
 private String categorie;
 
+    public BookVO(int idbook, String title, String autor, String editorial, Date dateed, int page, String categorie) {
+        this.idbook = idbook;
+        this.title = title;
+        this.autor = autor;
+        this.editorial = editorial;
+        this.dateed = dateed;
+        this.page = page;
+        this.categorie = categorie;
+    }
+
     public int getIdbook() {
         return idbook;
     }
