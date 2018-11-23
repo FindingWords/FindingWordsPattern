@@ -43,7 +43,7 @@ public class BookDAO extends Configuration{
             pdst.setString(2, book.getAutor());
             pdst.setString(3, book.getEditorial());
             pdst.setDate(4, (Date) book.getDateed());
-            pdst.setInt(5, book.getPage());
+            pdst.setInt(5, book.getPages());
             pdst.setString(6,book.getCategorie());
                     
             expResp = pdst.executeUpdate();
@@ -77,7 +77,7 @@ public class BookDAO extends Configuration{
                 book.setAutor(rs.getString(3));
                 book.setEditorial(rs.getString(4));
                 book.setDateed(rs.getDate(5));
-                book.setPage(rs.getInt(6));
+                book.setPages(rs.getInt(6));
                 book.setCategorie(rs.getString(7));
 
                 lisBook.add(book);
