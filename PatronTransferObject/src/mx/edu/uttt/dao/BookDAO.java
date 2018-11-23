@@ -37,7 +37,7 @@ public class BookDAO extends Configuration{
         int expResp = 0;
         try {
             String sql = 
-   "INSERT INTO book (title,autor,editorial,dateed,page,cetegorie) VALUES (?,?,?,?,?,?)";
+   "INSERT INTO book (title,autor,editorial,dateed,pages,cetegorie) VALUES (?,?,?,?,?,?)";
             pdst = this.conexion.prepareStatement(sql);
             pdst.setString(1, book.getTitle());
             pdst.setString(2, book.getAutor());
@@ -112,7 +112,7 @@ public class BookDAO extends Configuration{
         }
     }
     
-
+//ELIMINA EL LIBRO
     public boolean deleteBook(int idbook) {
         boolean respuesta = false;
         int expResp = 0;
