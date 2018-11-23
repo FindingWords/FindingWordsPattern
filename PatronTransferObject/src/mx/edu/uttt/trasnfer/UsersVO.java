@@ -14,6 +14,8 @@ public class UsersVO {
     private String passworder;
     private String maill;
 
+   
+
     public String getNamed() {
         return named;
     }
