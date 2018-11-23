@@ -14,7 +14,7 @@ public class BookVO {
 private String autor;
 private String editorial;
 private Date dateed;
-private int page; 
+private int pages; 
 private String categorie;
 
    
@@ -59,12 +59,12 @@ private String categorie;
         this.dateed = dateed;
     }
 
-    public int getPage() {
-        return page;
+    public int getPages() {
+        return pages;
     }
 
     public void setPage(int page) {
-        this.page = page;
+        this.pages = page;
     }
 
     public String getCategorie() {
