@@ -7,10 +7,7 @@ package mx.edu.uttt.trasnfer;
 
 import java.util.Date;
 
-/**
- *
- * @author galaxias
- */
+
 public class BookVO {
   private int idbook;
   private String title;
@@ -74,6 +71,9 @@ private String categorie;
 
     public void setCategorie(String categorie) {
         this.categorie = categorie;
+    }
+
+    public BookVO() {
     }
 
     
