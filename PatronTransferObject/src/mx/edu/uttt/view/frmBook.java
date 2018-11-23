@@ -257,7 +257,7 @@ public class frmBook extends javax.swing.JFrame {
         book.setAutor(txtautor.getText());
         book.setEditorial(txteditorial.getText());
         book.setDateed(fecha2);
-        book.setPage(Integer.parseInt (txtpage.getText()));
+        book.setPages(Integer.parseInt (txtpage.getText()));
         book.setCategorie(cmbcategory.getSelectedItem().toString());
         
         BookBO bookbo = new BookBO();
