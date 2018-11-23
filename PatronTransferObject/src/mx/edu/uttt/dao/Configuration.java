@@ -10,7 +10,7 @@ package mx.edu.uttt.dao;
  * @author galaxias
  */
 public class Configuration {
-  protected final String URL="jdbc:mysql://localhost:3306/findingwords";
+  protected final String URL="jdbc:mysql://127.0.0.1:3306/findingwords";
   protected final String DRIVER="com.mysql.jdbc.Driver";
   protected final String usuario="root";
   protected final String password="1234";
