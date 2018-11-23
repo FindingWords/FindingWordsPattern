@@ -5,6 +5,10 @@
  */
 package mx.edu.uttt.view;
 
+import java.util.Date;
+import mx.edu.uttt.business.BookBO;
+import mx.edu.uttt.trasnfer.BookVO;
+
 /**
  *
  * @author galaxias
@@ -38,9 +42,7 @@ public class frmBook extends javax.swing.JFrame {
         txttitle = new javax.swing.JTextField();
         txtautor = new javax.swing.JTextField();
         txteditorial = new javax.swing.JTextField();
-        txtdate = new javax.swing.JTextField();
         txtpage = new javax.swing.JTextField();
-        txtcategory = new javax.swing.JTextField();
         btninsert = new javax.swing.JButton();
         btnupdate = new javax.swing.JButton();
         btndelete = new javax.swing.JButton();
@@ -50,6 +52,8 @@ public class frmBook extends javax.swing.JFrame {
         btnclean = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         txtidbook = new javax.swing.JTextField();
+        jdateed = new com.toedter.calendar.JDateChooser();
+        cmbcategory = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,14 +86,15 @@ public class frmBook extends javax.swing.JFrame {
 
         txteditorial.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        txtdate.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
         txtpage.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
-        txtcategory.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         btninsert.setFont(new java.awt.Font("Georgia", 3, 18)); // NOI18N
         btninsert.setText("INSERT");
+        btninsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btninsertActionPerformed(evt);
+            }
+        });
 
         btnupdate.setFont(new java.awt.Font("Georgia", 3, 18)); // NOI18N
         btnupdate.setText("UPDATE");
@@ -121,6 +126,13 @@ public class frmBook extends javax.swing.JFrame {
 
         txtidbook.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
+        cmbcategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Horror", "Romance", "Fiction &  Fantasy", "Porn", "Reflexion" }));
+        cmbcategory.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbcategoryItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -128,7 +140,7 @@ public class frmBook extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addGap(18, 18, 18)
@@ -148,7 +160,7 @@ public class frmBook extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jdateed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
@@ -156,7 +168,7 @@ public class frmBook extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(txtcategory, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmbcategory, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(102, 102, 102)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnupdate)
@@ -204,9 +216,9 @@ public class frmBook extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(txteditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
-                            .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jdateed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
@@ -214,8 +226,8 @@ public class frmBook extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(txtcategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(32, 32, 32)
+                            .addComponent(cmbcategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -233,6 +245,31 @@ public class frmBook extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btninsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninsertActionPerformed
+        BookVO book = new BookVO();
+        //convercion de la fecha para la base de datos 
+        Date fecha = jdateed.getDate();
+        long a = fecha.getTime();
+        java.sql.Date fecha2 = new java.sql.Date(a);
+        
+        book.setTitle(txttitle.getText());
+        book.setAutor(txtautor.getText());
+        book.setEditorial(txteditorial.getText());
+        book.setDateed(fecha2);
+        book.setPage(Integer.parseInt (txtpage.getText()));
+        book.setCategorie(cmbcategory.getSelectedItem().toString());
+        
+        BookBO bookbo = new BookBO();
+        bookbo.insertBooks(book);
+        
+    }//GEN-LAST:event_btninsertActionPerformed
+
+    private void cmbcategoryItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbcategoryItemStateChanged
+        int indice;
+        
+        
+    }//GEN-LAST:event_cmbcategoryItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -276,6 +313,7 @@ public class frmBook extends javax.swing.JFrame {
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btninsert;
     private javax.swing.JButton btnupdate;
+    private javax.swing.JComboBox<String> cmbcategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -286,10 +324,9 @@ public class frmBook extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JDateChooser jdateed;
     private javax.swing.JTable tablefindingwords;
     private javax.swing.JTextField txtautor;
-    private javax.swing.JTextField txtcategory;
-    private javax.swing.JTextField txtdate;
     private javax.swing.JTextField txteditorial;
     private javax.swing.JTextField txtidbook;
     private javax.swing.JTextField txtpage;
