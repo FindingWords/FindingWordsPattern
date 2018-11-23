@@ -36,8 +36,7 @@ public class BookDAO extends Configuration{
         boolean respuesta = false;
         int expResp = 0;
         try {
-            String sql = 
-   "INSERT INTO book (title,autor,editorial,dateed,pages,categorie) VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO book (title,autor,editorial,dateed,pages,categorie) VALUES (?,?,?,?,?,?)";
             pdst = this.conexion.prepareStatement(sql);
             pdst.setString(1, book.getTitle());
             pdst.setString(2, book.getAutor());
