@@ -23,6 +23,13 @@ public class BookBO {
         try {
             BookDAO bookDao=new BookDAO();
             bookDao.insert(book);
+            
+            if (bookDao.insert(book)){
+                JOptionPane.showMessageDialog(null, "El libro se regiistro con exito");
+            } else{
+                JOptionPane.showMessageDialog(null, "Fallo al registrar");
+            }
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookBO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
