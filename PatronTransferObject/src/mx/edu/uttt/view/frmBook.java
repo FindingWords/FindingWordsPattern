@@ -10,6 +10,7 @@ import java.util.Date;
 import mx.edu.uttt.business.BookBO;
 import mx.edu.uttt.trasnfer.BookVO;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author galaxias
@@ -19,48 +20,46 @@ public class frmBook extends javax.swing.JFrame {
     /**
      * Creates new form LibroBook
      */
-    DefaultTableModel modeloTabla=new DefaultTableModel(){
-        public boolean isCellEditTable(int row, int column){
-           return false; 
+    DefaultTableModel modeloTabla = new DefaultTableModel() {
+        public boolean isCellEditTable(int row, int column) {
+            return false;
         }
     };
+
     public frmBook() {
         initComponents();
         encabezados();
-       llenarTabla();
+        llenarTabla();
     }
 
-    
-    private void encabezados(){
+    private void encabezados() {
         modeloTabla.addColumn("Idbook");
-          modeloTabla.addColumn("TITLE");
-            modeloTabla.addColumn("Author");
-              modeloTabla.addColumn("Editorial");
-                modeloTabla.addColumn("Date");
-                  modeloTabla.addColumn("Pages");
-                    modeloTabla.addColumn("Category");
+        modeloTabla.addColumn("Title");
+        modeloTabla.addColumn("Author");
+        modeloTabla.addColumn("Editorial");
+        modeloTabla.addColumn("Date");
+        modeloTabla.addColumn("Pages");
+        modeloTabla.addColumn("Category");
     }
-    public void llenarTabla(){
-        
-        ArrayList<BookVO>listaBook=(ArrayList<BookVO>) new BookBO().getAllBooks();
+
+    public void llenarTabla() {
+
+        ArrayList<BookVO> listaBook = (ArrayList<BookVO>) new BookBO().getAllBooks();
         for (BookVO c : listaBook) {
-        modeloTabla.addRow(new String[]{
-       String.valueOf(c.getIdbook()),
-         String.valueOf(c.getTitle()),
-          String.valueOf(c.getAutor()),
-                  String.valueOf(c.getEditorial()),
-         
+            modeloTabla.addRow(new String[]{
+                String.valueOf(c.getIdbook()),
+                String.valueOf(c.getTitle()),
+                String.valueOf(c.getAutor()),
+                String.valueOf(c.getEditorial()),
                 String.valueOf(c.getDateed()),
-                        String.valueOf(c.getPages()),
-                                 String.valueOf(c.getCategorie())
-                
-    
-    });
-        
-        
+                String.valueOf(c.getPages()),
+                String.valueOf(c.getCategorie())
+
+            });
+
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -298,27 +297,27 @@ public class frmBook extends javax.swing.JFrame {
         Date fecha = jdateed.getDate();
         long a = fecha.getTime();
         java.sql.Date fecha2 = new java.sql.Date(a);
-        
+
         book.setTitle(txttitle.getText());
         book.setAutor(txtautor.getText());
         book.setEditorial(txteditorial.getText());
         book.setDateed(fecha2);
-        book.setPages(Integer.parseInt (txtpage.getText()));
+        book.setPages(Integer.parseInt(txtpage.getText()));
         book.setCategorie(cmbcategory.getSelectedItem().toString());
-        
+
         BookBO bookbo = new BookBO();
         bookbo.insertBooks(book);
-        
+
     }//GEN-LAST:event_btninsertActionPerformed
 
     private void cmbcategoryItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbcategoryItemStateChanged
         int indice;
-        
-        
+
+
     }//GEN-LAST:event_cmbcategoryItemStateChanged
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-       llenarTabla();
+        llenarTabla();
     }//GEN-LAST:event_formWindowOpened
 
     /**
