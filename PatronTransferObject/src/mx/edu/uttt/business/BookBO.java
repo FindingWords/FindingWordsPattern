@@ -37,16 +37,37 @@ public class BookBO {
         BookDAO bookDao = new BookDAO();
         return Books = bookDao.getAllBook();
     }
-    
-    public void deleteStudent(int id){
+
+    public void deleteStudent(int idbook) {
         BookDAO bookDao = new BookDAO();
-        bookDao.deleteBook(id);
-        
-        
-        if (bookDao.deleteBook(id)){
-             JOptionPane.showMessageDialog(null, "El libro con el id "+ id+" fue eliminado con exito");
+        bookDao.deleteBook(idbook);
+
+        if (bookDao.deleteBook(idbook)) {
+            JOptionPane.showMessageDialog(null, "El libro con el id " + idbook + " fue eliminado con exito");
         } else {
             JOptionPane.showMessageDialog(null, "Fallo al eliminar");
         }
     }
+
+    public int getID() {
+        BookDAO bookDao = new BookDAO();
+        return bookDao.getMaxId();
+    }
+    
+    public BookVO getBook(int idbook){
+         BookDAO bookDao = new BookDAO();
+         return bookDao.getBook(idbook);
+    }
+    
+    public void cleanBook (){
+        BookDAO bookDao = new BookDAO();
+        bookDao.deleteBook();
+
+        if (bookDao.deleteBook()) {
+            JOptionPane.showMessageDialog(null, "Tabla eliminada con exito");
+        } else {
+            JOptionPane.showMessageDialog(null, "Fallo al eliminar");
+        }
+    }
+
 }
