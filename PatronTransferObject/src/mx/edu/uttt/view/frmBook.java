@@ -45,7 +45,7 @@ public class frmBook extends javax.swing.JFrame {
         ArrayList<BookVO>listaBook=(ArrayList<BookVO>) new BookBO().getAllBooks();
         for (BookVO c : listaBook) {
         modeloTabla.addRow(new String[]{
-       String.valueOf(c.getIdbook()),
+        String.valueOf(c.getIdbook()),
          String.valueOf(c.getTitle()),
           String.valueOf(c.getAutor()),
                   String.valueOf(c.getEditorial()),
