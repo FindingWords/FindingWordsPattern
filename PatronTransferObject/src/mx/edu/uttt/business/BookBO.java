@@ -18,22 +18,24 @@ import mx.edu.uttt.trasnfer.BookVO;
  * @author galaxias
  */
 public class BookBO {
-   //Creacion de clase BookBo
-    
-    List<BookVO>Books;
-    public void insertBooks(BookVO book){
-        
-        BookDAO bookDao=new BookDAO();
+    //Creacion de clase BookBo
+
+    List<BookVO> Books;
+
+    public void insertBooks(BookVO book) {
+
+        BookDAO bookDao = new BookDAO();
         bookDao.insert(book);
-        if (bookDao.insert(book)){
+        if (bookDao.insert(book)) {
             JOptionPane.showMessageDialog(null, "El libro se regiistro con exito");
-        } else{
+        } else {
             JOptionPane.showMessageDialog(null, "Fallo al registrar");
         }
     }
-    
-    public List<BookVO>getAllBooks(){
-    return Books;
+
+    public List<BookVO> getAllBooks() {
+        BookDAO bookDao = new BookDAO();
+        return Books = bookDao.getAllBook();
     }
-    
+
 }
