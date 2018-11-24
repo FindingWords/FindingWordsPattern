@@ -7,60 +7,52 @@ package mx.edu.uttt.view;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import mx.edu.uttt.business.BookBO;
 import mx.edu.uttt.trasnfer.BookVO;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author galaxias
  */
 public class frmBook extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LibroBook
-     */
-    DefaultTableModel modeloTabla=new DefaultTableModel(){
-        public boolean isCellEditTable(int row, int column){
-           return false; 
-        }
-    };
+    List<BookVO> listBook = new ArrayList();
+    DefaultTableModel modBook;
+
     public frmBook() {
         initComponents();
-        encabezados();
-       llenarTabla();
+
+        modBook = new DefaultTableModel();
+        modBook.addColumn("ID");
+        modBook.addColumn("TITLE");
+        modBook.addColumn("AUTHOR");
+        modBook.addColumn("EDITORIAL");
+        modBook.addColumn("DATE EDITION");
+        modBook.addColumn("PAGES");
+        modBook.addColumn("CATEGORY");
+        this.tablefindingwords.setModel(modBook);
+
     }
 
-    
-    private void encabezados(){
-        modeloTabla.addColumn("Idbook");
-          modeloTabla.addColumn("TITLE");
-            modeloTabla.addColumn("Author");
-              modeloTabla.addColumn("Editorial");
-                modeloTabla.addColumn("Date");
-                  modeloTabla.addColumn("Pages");
-                    modeloTabla.addColumn("Category");
-    }
-    public void llenarTabla(){
-        
-        ArrayList<BookVO>listaBook=(ArrayList<BookVO>) new BookBO().getAllBooks();
-        for (BookVO c : listaBook) {
-        modeloTabla.addRow(new String[]{
-        String.valueOf(c.getIdbook()),
-         String.valueOf(c.getTitle()),
-          String.valueOf(c.getAutor()),
-                  String.valueOf(c.getEditorial()),
-         
-                String.valueOf(c.getDateed()),
-                        String.valueOf(c.getPages()),
-                                 String.valueOf(c.getCategorie())
-                
-    
-    });
-        
-        
+    public void llenarTabla() {
+        BookBO bookbo = new BookBO();
+        bookbo.getAllBooks();
+        for (int i = 0; i <= listBook.size() - 1; i++) {
+            String datos[] = new String [7];
+            datos[0]= String.valueOf(listBook.get(i).getIdbook());
+            datos[1]= listBook.get(i).getTitle();
+            datos[2]= listBook.get(i).getAutor();
+            datos[3]= listBook.get(i).getEditorial();
+            datos[4]= String.valueOf(listBook.get(i).getDateed());
+            datos[5]= String.valueOf(listBook.get(i).getPages());
+            datos[6]= listBook.get(i).getCategorie();
+            modBook.addRow(datos);
         }
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -298,27 +290,27 @@ public class frmBook extends javax.swing.JFrame {
         Date fecha = jdateed.getDate();
         long a = fecha.getTime();
         java.sql.Date fecha2 = new java.sql.Date(a);
-        
+
         book.setTitle(txttitle.getText());
         book.setAutor(txtautor.getText());
         book.setEditorial(txteditorial.getText());
         book.setDateed(fecha2);
-        book.setPages(Integer.parseInt (txtpage.getText()));
+        book.setPages(Integer.parseInt(txtpage.getText()));
         book.setCategorie(cmbcategory.getSelectedItem().toString());
-        
+
         BookBO bookbo = new BookBO();
         bookbo.insertBooks(book);
-        
+
     }//GEN-LAST:event_btninsertActionPerformed
 
     private void cmbcategoryItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbcategoryItemStateChanged
         int indice;
-        
-        
+
+
     }//GEN-LAST:event_cmbcategoryItemStateChanged
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-       llenarTabla();
+        llenarTabla();
     }//GEN-LAST:event_formWindowOpened
 
     /**
