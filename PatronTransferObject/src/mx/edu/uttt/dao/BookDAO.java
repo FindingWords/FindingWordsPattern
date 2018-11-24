@@ -1,6 +1,7 @@
 
 package mx.edu.uttt.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -19,35 +20,29 @@ public class BookDAO extends Configuration{
     private Connection conexion;
     private PreparedStatement pdst;
 
-    public BookDAO() throws ClassNotFoundException, SQLException{
-        try {
-            Class.forName(DRIVER);
-            this.conexion = DriverManager.getConnection(URL, usuario, password);
-            this.conexion.setAutoCommit(false);
-            System.out.println("Conexion Abierta");
-        } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }  
+
+    
     
     //INSERTAR LIBROS
-    //POR MEDIO DEL MODELO (OBJETO)
+    //POR MEDIO DEL MODELO (OBJETO) pdst = this.conexion.prepareStatement(sql);
     public boolean insert(BookVO book) {
         boolean respuesta = false;
         int expResp = 0;
         try {
-            String sql = 
-   "INSERT INTO book (title,autor,editorial,dateed,pages,categorie) VALUES (?,?,?,?,?,?)";
-            pdst = this.conexion.prepareStatement(sql);
-            pdst.setString(1, book.getTitle());
-            pdst.setString(2, book.getAutor());
-            pdst.setString(3, book.getEditorial());
-            pdst.setDate(4, (Date) book.getDateed());
-            pdst.setInt(5, book.getPages());
-            pdst.setString(6,book.getCategorie());
+            String sql = "INSERT INTO book (title,autor,editorial,dateed,pages,categorie) VALUES (?,?,?,?,?,?);";
+            
+             Connection con=new Configuration().obtenerConexion();
+              PreparedStatement ps= con.prepareCall(sql);
+           
+            ps.setString(1, book.getTitle());
+            ps.setString(2, book.getAutor());
+            ps.setString(3, book.getEditorial());
+            ps.setDate(4, (Date) book.getDateed());
+            ps.setInt(5, book.getPages());
+            ps.setString(6,book.getCategorie());
                     
-            expResp = pdst.executeUpdate();
-            this.conexion.commit();
+            expResp = ps.executeUpdate();
+            
             if (expResp > 0) {
                 respuesta = true;
             }
