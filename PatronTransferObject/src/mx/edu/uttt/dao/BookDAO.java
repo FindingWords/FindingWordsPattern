@@ -61,10 +61,12 @@ public class BookDAO extends Configuration{
 
         try {
             ResultSet rs = null;
-
-            pdst = this.conexion.prepareStatement("SELECT * FROM book");
+  Connection con=new Configuration().obtenerConexion();
+         PreparedStatement pdst=con.prepareStatement("SELECT * FROM book");
             rs = pdst.executeQuery();
 
+          
+             
             while (rs.next()) {
                 BookVO book = new BookVO();
                 book.setIdbook(rs.getInt(1));
@@ -78,7 +80,7 @@ public class BookDAO extends Configuration{
                 lisBook.add(book);
             }
             rs.close();
-            this.conexion.close();
+            con.close();
             return lisBook;
         } catch (SQLException ex) {
             return null;

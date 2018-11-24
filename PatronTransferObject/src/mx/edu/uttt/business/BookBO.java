@@ -6,6 +6,7 @@
 package mx.edu.uttt.business;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,6 +19,8 @@ import mx.edu.uttt.trasnfer.BookVO;
  */
 public class BookBO {
    //Creacion de clase BookBo
+    
+    List<BookVO>Books;
     public void insertBooks(BookVO book){
         
         BookDAO bookDao=new BookDAO();
@@ -27,6 +30,10 @@ public class BookBO {
         } else{
             JOptionPane.showMessageDialog(null, "Fallo al registrar");
         }
+    }
+    
+    public List<BookVO>getAllBooks(){
+    return Books;
     }
     
 }
