@@ -5,10 +5,11 @@
  */
 package mx.edu.uttt.view;
 
+import java.util.ArrayList;
 import java.util.Date;
 import mx.edu.uttt.business.BookBO;
 import mx.edu.uttt.trasnfer.BookVO;
-
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author galaxias
@@ -18,10 +19,48 @@ public class frmBook extends javax.swing.JFrame {
     /**
      * Creates new form LibroBook
      */
+    DefaultTableModel modeloTabla=new DefaultTableModel(){
+        public boolean isCellEditTable(int row, int column){
+           return false; 
+        }
+    };
     public frmBook() {
         initComponents();
+        encabezados();
+       llenarTabla();
     }
 
+    
+    private void encabezados(){
+        modeloTabla.addColumn("Idbook");
+          modeloTabla.addColumn("TITLE");
+            modeloTabla.addColumn("Author");
+              modeloTabla.addColumn("Editorial");
+                modeloTabla.addColumn("Date");
+                  modeloTabla.addColumn("Pages");
+                    modeloTabla.addColumn("Category");
+    }
+    public void llenarTabla(){
+        
+        ArrayList<BookVO>listaBook=(ArrayList<BookVO>) new BookBO().getAllBooks();
+        for (BookVO c : listaBook) {
+        modeloTabla.addRow(new String[]{
+       String.valueOf(c.getIdbook()),
+         String.valueOf(c.getTitle()),
+          String.valueOf(c.getAutor()),
+                  String.valueOf(c.getEditorial()),
+         
+                String.valueOf(c.getDateed()),
+                        String.valueOf(c.getPages()),
+                                 String.valueOf(c.getCategorie())
+                
+    
+    });
+        
+        
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,6 +95,11 @@ public class frmBook extends javax.swing.JFrame {
         cmbcategory = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 0));
 
@@ -228,7 +272,7 @@ public class frmBook extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(cmbcategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -240,7 +284,9 @@ public class frmBook extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 42, Short.MAX_VALUE))
         );
 
         pack();
@@ -270,6 +316,10 @@ public class frmBook extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_cmbcategoryItemStateChanged
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+       llenarTabla();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
