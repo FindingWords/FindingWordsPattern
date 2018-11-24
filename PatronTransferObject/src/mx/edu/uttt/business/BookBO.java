@@ -27,7 +27,7 @@ public class BookBO {
         BookDAO bookDao = new BookDAO();
         bookDao.insert(book);
         if (bookDao.insert(book)) {
-            JOptionPane.showMessageDialog(null, "El libro se regiistro con exito");
+            JOptionPane.showMessageDialog(null, "El libro se registro con exito");
         } else {
             JOptionPane.showMessageDialog(null, "Fallo al registrar");
         }
@@ -37,5 +37,16 @@ public class BookBO {
         BookDAO bookDao = new BookDAO();
         return Books = bookDao.getAllBook();
     }
-
+    
+    public void deleteStudent(int id){
+        BookDAO bookDao = new BookDAO();
+        bookDao.deleteBook(id);
+        
+        
+        if (bookDao.deleteBook(id)){
+             JOptionPane.showMessageDialog(null, "El libro con el id "+ id+" fue eliminado con exito");
+        } else {
+            JOptionPane.showMessageDialog(null, "Fallo al eliminar");
+        }
+    }
 }
