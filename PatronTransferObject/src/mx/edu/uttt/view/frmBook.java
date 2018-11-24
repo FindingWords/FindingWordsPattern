@@ -7,6 +7,7 @@ package mx.edu.uttt.view;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import mx.edu.uttt.business.BookBO;
 import mx.edu.uttt.trasnfer.BookVO;
 import javax.swing.table.DefaultTableModel;
@@ -17,18 +18,57 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmBook extends javax.swing.JFrame {
 
+    DefaultTableModel modBook;
+    int id, newId;
+    List<BookVO> lisBook = new ArrayList();
+
     /**
      * Creates new form LibroBook
      */
-    
-
     public frmBook() {
         initComponents();
+        modBook = new DefaultTableModel();
+        modBook.addColumn("ID");
+        modBook.addColumn("TITLE");
+        modBook.addColumn("AUTOR");
+        modBook.addColumn("EDITORIAL");
+        modBook.addColumn("DATE EDITION");
+        modBook.addColumn("PAGES");
+        modBook.addColumn("CATEGORY");
+        this.tableBooks.setModel(modBook);
 
     }
 
-    
-   
+    public void getId() {
+        BookBO bookbo = new BookBO();
+        id = bookbo.getID();
+        newId = id + 1;
+        txtidbook.setText(String.valueOf(newId));
+    }
+
+    public void table() {
+        BookBO bookbo = new BookBO();
+        lisBook = bookbo.getAllBooks();
+
+        for (int i = 0; i <= lisBook.size() - 1; i++) {
+            String datos[] = new String[7];
+            datos[0] = String.valueOf(lisBook.get(i).getIdbook());
+            datos[1] = lisBook.get(i).getTitle();
+            datos[2] = lisBook.get(i).getAutor();
+            datos[3] = lisBook.get(i).getEditorial();
+            datos[4] = String.valueOf(lisBook.get(i).getDateed());
+            datos[5] = String.valueOf(lisBook.get(i).getPages());
+            datos[6] = lisBook.get(i).getCategorie();
+            modBook.addRow(datos);
+        }
+    }
+
+    public void deleteDup() {
+        int i = tableBooks.getRowCount() - 1;
+        for (int j = 0; j <= i; j++) {
+            modBook.removeRow(modBook.getRowCount() - 1);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -122,6 +162,11 @@ public class frmBook extends javax.swing.JFrame {
 
         btnconsult.setFont(new java.awt.Font("Georgia", 3, 18)); // NOI18N
         btnconsult.setText("CONSULT");
+        btnconsult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnconsultActionPerformed(evt);
+            }
+        });
 
         tableBooks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -138,6 +183,11 @@ public class frmBook extends javax.swing.JFrame {
 
         btnclean.setFont(new java.awt.Font("Georgia", 3, 18)); // NOI18N
         btnclean.setText("CLEAN");
+        btnclean.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncleanActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Georgia", 3, 18)); // NOI18N
         jLabel8.setText("IDBook:");
@@ -159,21 +209,9 @@ public class frmBook extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtidbook, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
                         .addComponent(cmbcategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txttitle, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtautor, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -184,7 +222,17 @@ public class frmBook extends javax.swing.JFrame {
                             .addComponent(txtpage, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jdateed, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                                .addComponent(txteditorial)))))
+                                .addComponent(txteditorial))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel8))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtidbook, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txttitle, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtautor, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -274,6 +322,19 @@ public class frmBook extends javax.swing.JFrame {
 
         BookBO bookbo = new BookBO();
         bookbo.insertBooks(book);
+        
+        
+        String[] agregar = new String[7];
+        agregar[0] = String.valueOf(book.getIdbook());
+        agregar[1] = book.getTitle();
+        agregar[2] = book.getAutor();
+        agregar[3] = book.getEditorial();
+        agregar[4] = String.valueOf(book.getDateed());
+        agregar[5] = String.valueOf(book.getPages());
+        agregar[6] = book.getCategorie();
+        modBook.addRow(agregar);
+
+        getId();
 
     }//GEN-LAST:event_btninsertActionPerformed
 
@@ -284,15 +345,52 @@ public class frmBook extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbcategoryItemStateChanged
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-     
+        getId();
+        table();
     }//GEN-LAST:event_formWindowOpened
 
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
         BookBO bookbo = new BookBO();
-        int id = Integer.parseInt (txtidbook.getText());
-        bookbo.deleteStudent(id);
-        
+        int idbook = Integer.parseInt(txtidbook.getText());
+        bookbo.deleteStudent(idbook);
+
+        deleteDup();
+        table();
+
     }//GEN-LAST:event_btndeleteActionPerformed
+
+    private void btnconsultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconsultActionPerformed
+        deleteDup();
+
+        BookVO book = new BookVO();
+        BookBO bookbo = new BookBO();
+        book = bookbo.getBook(Integer.parseInt(txtidbook.getText()));
+
+        txtidbook.setText(String.valueOf(book.getIdbook()));
+        txttitle.setText(book.getTitle());
+        txtautor.setText(book.getAutor());
+        txteditorial.setText(book.getEditorial());
+        jdateed.setDate(book.getDateed());
+        txtpage.setText(String.valueOf(book.getPages()));
+        cmbcategory.setSelectedItem(book.getCategorie());
+        
+        String[] agregar = new String[7];
+        agregar[0] = String.valueOf(book.getIdbook());
+        agregar[1] = book.getTitle();
+        agregar[2] = book.getAutor();
+        agregar[3] = book.getEditorial();
+        agregar[4] = String.valueOf(book.getDateed());
+        agregar[5] = String.valueOf(book.getPages());
+        agregar[6] = book.getCategorie();
+        modBook.addRow(agregar);
+        
+        table();
+    }//GEN-LAST:event_btnconsultActionPerformed
+
+    private void btncleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncleanActionPerformed
+       BookBO bookBo = new BookBO();
+       bookBo.cleanBook();
+    }//GEN-LAST:event_btncleanActionPerformed
 
     /**
      * @param args the command line arguments
